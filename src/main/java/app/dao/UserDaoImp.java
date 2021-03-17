@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -15,8 +16,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Component
 @Repository
+@Component
 public class UserDaoImp implements UserDao {
 
     @PersistenceContext(unitName = "entityManagerFactory")
@@ -29,11 +30,8 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public void addUser(User user) {
-        EntityManagerFactory factory = entityManager.getEntityManagerFactory();
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(user);
-        em.getTransaction().commit();
+
+        entityManager.persist(user);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class UserDaoImp implements UserDao {
     @Override
     public List<User> getAllUsers() {
         EntityManager em = entityManager;
-        List<User> users = em.createQuery("SELECT from User")
+        List<User> users = em.createQuery("select u from User u")
                 .getResultList();
         return users;
     }

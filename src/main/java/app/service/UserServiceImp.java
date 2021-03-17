@@ -4,12 +4,13 @@ import app.dao.UserDao;
 import app.dao.UserDaoImp;
 import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceContext;
 import java.util.List;
-
+@Component
 @Service
 public class UserServiceImp implements UserService {
 
@@ -17,6 +18,7 @@ public class UserServiceImp implements UserService {
     private UserDao userDao;
     boolean usersAdded = false;
 
+    @Override
     @Transactional
     public void addUsers() {
         User user = new User("Masha", "Petrova");
