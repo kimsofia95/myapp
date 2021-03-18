@@ -21,11 +21,13 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void addUsers() {
-        User user = new User("Masha", "Petrova");
-        addUser(user);
-        User user1 = new User("Sasha", "Petrov");
-        addUser(user1);
-        usersAdded = true;
+        if (!usersAdded) {
+            User user = new User("Masha", "Petrova");
+            addUser(user);
+            User user1 = new User("Sasha", "Petrov");
+            addUser(user1);
+            usersAdded = true;
+        }
     }
 
     @Transactional
@@ -50,6 +52,12 @@ public class UserServiceImp implements UserService {
     @Override
     public void changeUser(User user) {
         userDao.changeUser(user);
+    }
+
+    @Transactional
+    @Override
+    public User getUserById(int id) {
+        return userDao.getUserById(id);
     }
 
     @Transactional
