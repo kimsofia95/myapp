@@ -1,11 +1,9 @@
-package app.web.controller;
+package app.controller;
 
 import app.model.User;
 import app.service.UserService;
-import app.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,8 +11,12 @@ import javax.transaction.Transactional;
 
 @Controller
 public class UsersController {
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UsersController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Transactional
     @RequestMapping(method = RequestMethod.GET)
