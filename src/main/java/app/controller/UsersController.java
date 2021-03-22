@@ -19,7 +19,7 @@ public class UsersController {
     }
 
     @Transactional
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ModelAndView printUsers() {
         //userService.addUsers();
         userService.getAllUsers();
@@ -29,7 +29,7 @@ public class UsersController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/edit/{id}")
     public ModelAndView editPage(@PathVariable("id") int id) {
         User user = userService.getUserById(id);
         ModelAndView modelAndView = new ModelAndView();
@@ -38,7 +38,7 @@ public class UsersController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping(value = "/edit")
     public ModelAndView editUser(@ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
@@ -46,21 +46,21 @@ public class UsersController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public ModelAndView addUser(@ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
         userService.addUser(user);
         return modelAndView;
     }
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @GetMapping(value = "/add")
     public ModelAndView addUser() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editUser");
         return modelAndView;
     }
 
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+    @GetMapping(value="/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
